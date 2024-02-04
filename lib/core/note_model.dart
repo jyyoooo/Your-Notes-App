@@ -1,6 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+
 class NotesModel {
-  final int id;
+  final String? id;
   final String? createdAt;
   final String? updatedAt;
   final String title;
@@ -8,26 +8,35 @@ class NotesModel {
   final bool? isCompleted;
 
   NotesModel({
-    required this.id,
+    this.id,
     required this.title,
     required this.description,
     this.isCompleted,
     this.createdAt,
     this.updatedAt,
   });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      '_id': id,
+      'created_at': createdAt,
+      'updated_at': updatedAt,
+      'title': title,
+      'description': description,
+      'is_completed': isCompleted,
+    };
+  }
+
+  factory NotesModel.fromMap(Map<String, dynamic> json) {
+    return NotesModel(
+      id: json['_id'] as String,
+      createdAt: json['created_at'] != null ? json['created_at'] as String : null,
+      updatedAt: json['updated_at'] != null ? json['updated_at'] as String : null,
+      title: json['title'] as String,
+      description: json['description'] as String,
+      isCompleted: json['is_completed'] != null ? json['is_completed'] as bool : null,
+    );
+  }
+
 }
 
-
-
-
-
-// [
-//   {
-//     "_id": "string",
-//     "created_at": "2024-02-04T05:37:16.353Z",
-//     "updated_at": "2024-02-04T05:37:16.353Z",
-//     "title": "string",
-//     "description": "string",
-//     "is_completed": true
-//   }
-// ]
