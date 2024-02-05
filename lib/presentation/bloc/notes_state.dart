@@ -17,6 +17,7 @@ class NotesErrorFetchState extends NotesState {}
 
 class NotesFetchLoadingState extends NotesState {}
 
-class NotesAddSuccessState extends NotesActionState {}
+class NotesAddSuccessState extends NotesActionState {
+}
 
 class NotesAddErrorState extends NotesActionState {}

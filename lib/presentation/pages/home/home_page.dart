@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'widgets/note_card.dart';
+import 'widgets/show_snackbar.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -31,7 +32,8 @@ class _HomeState extends State<Home> {
     // });
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(backgroundColor: Colors.tealAccent,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.tealAccent,
         onPressed: () {
           addNoteSheet(context, notesBloc);
         },
@@ -53,7 +55,13 @@ class _HomeState extends State<Home> {
         bloc: notesBloc,
         listenWhen: (previous, current) => current is NotesActionState,
         buildWhen: (previous, current) => current is! NotesActionState,
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is NotesAddSuccessState) {
+            showSnackbar('Note added successfully!', context);
+
+            notesBloc.add(NotesInitialFetchEvent());
+          }
+        },
         builder: (context, state) {
           switch (state.runtimeType) {
             case NotesFetchLoadingState:
