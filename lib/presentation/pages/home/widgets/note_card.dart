@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-
 import '../../../../core/note_model.dart';
 
 class NotesWidget extends StatelessWidget {
@@ -17,9 +16,9 @@ class NotesWidget extends StatelessWidget {
     return Center(
       child: Slidable(
         endActionPane: ActionPane(motion: const DrawerMotion(), children: [
-          SlidableAction(
-            flex: 2,
-            spacing: 9,
+          SlidableAction(label: 'Delete note',
+            flex: 1,
+            spacing: 0,
             onPressed: (context) {},
             icon: CupertinoIcons.delete,
             foregroundColor: Colors.red,
@@ -50,7 +49,7 @@ class NotesWidget extends StatelessWidget {
                   Text(
                     note.description,
                     textAlign: TextAlign.start,
-                    style: TextStyle(color: Colors.grey[700]),
+                    style: TextStyle(color: Colors.grey[700],overflow: TextOverflow.fade),
                   )
                 ],
               ),

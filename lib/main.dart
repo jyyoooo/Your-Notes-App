@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'BLoC Implementation',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.tealAccent),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
           useMaterial3: true,
         ),
         home: const Home(),
