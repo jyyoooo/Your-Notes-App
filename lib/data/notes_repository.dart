@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 
 const String baseUrl = 'https://api.nstack.in/v1/todos';
 
+// const String baseUrl = 'http://35.154.103.21:8090';
+
 class NotesRepository {
   // Fetch notes from API
   static Future<List<NotesModel>> fetchNotes() async {
@@ -16,8 +18,9 @@ class NotesRepository {
       log(response.statusCode.toString());
 
       if (response.statusCode == 200) {
-        final Map<String, dynamic> responseData = jsonDecode(response.body);
-        final List notesFromJson = responseData['items'];
+        final responseData = jsonDecode(response.body);
+        log(responseData.toString());
+        final notesFromJson = responseData['items'];
         log('items in notes are ${responseData['items']}');
         for (Map<String, dynamic> note in notesFromJson) {
           notes.add(NotesModel.fromMap(note));

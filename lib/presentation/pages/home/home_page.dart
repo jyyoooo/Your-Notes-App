@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'widgets/note_card.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
   @override
@@ -34,12 +36,15 @@ class _HomeState extends State<Home> {
         },
         child: const Icon(CupertinoIcons.add),
       ),
-      appBar: AppBar(
-        toolbarHeight: 80,
-        backgroundColor: Colors.tealAccent,
-        title: const Text(
-          'Your Notes',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+      appBar: AppBar(forceMaterialTransparency: true,
+        toolbarHeight: 70,
+        backgroundColor: Colors.transparent,
+        title: const Padding(
+          padding: EdgeInsets.only(top: 25.0),
+          child: Text(
+            'Your Notes',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+          ),
         ),
       ),
       body: BlocConsumer<NotesBloc, NotesState>(
@@ -55,15 +60,10 @@ class _HomeState extends State<Home> {
               final successState = state as NotesSuccessfulFetchState;
               log('suxs state');
               return ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 itemCount: successState.notes.length,
-                itemBuilder: (context, index) => Center(
-                  child: Container(
-                    height: 50,
-                    width: 150,
-                    color: Colors.yellow,
-                    child: Text(successState.notes[index].title),
-                  ),
-                ),
+                itemBuilder: (context, index) =>
+                    NotesWidget(note: successState.notes[index]),
               );
 
             default:

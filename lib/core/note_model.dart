@@ -11,7 +11,7 @@ class NotesModel {
     this.id,
     required this.title,
     required this.description,
-    this.isCompleted,
+    this.isCompleted = false,
     this.createdAt,
     this.updatedAt,
   });
@@ -19,22 +19,22 @@ class NotesModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       '_id': id,
-      'created_at': createdAt,
+      'createdAt': createdAt,
       'updated_at': updatedAt,
       'title': title,
       'description': description,
-      'is_completed': isCompleted,
+      'isCompleted': isCompleted,
     };
   }
 
   factory NotesModel.fromMap(Map<String, dynamic> json) {
     return NotesModel(
       id: json['_id'] as String,
-      createdAt: json['created_at'] != null ? json['created_at'] as String : null,
+      createdAt: json['createdAt'] != null ? json['createdAt'] as String : null,
       updatedAt: json['updated_at'] != null ? json['updated_at'] as String : null,
       title: json['title'] as String,
       description: json['description'] as String,
-      isCompleted: json['is_completed'] != null ? json['is_completed'] as bool : null,
+      isCompleted: json['isCompleted'] != null ? json['isCompleted'] as bool : null,
     );
   }
 
