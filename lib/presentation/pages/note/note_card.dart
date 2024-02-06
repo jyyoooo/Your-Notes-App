@@ -26,7 +26,7 @@ class NotesWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             onPressed: (dummyCtx) {},
             label:
-                'Created at\n${NotesRepository().formatDateTime(note.createdAt!)}',
+                'Created on\n${NotesRepository().formatDateTime(note.createdAt!)}',
           )
         ]),
         endActionPane: ActionPane(motion: const DrawerMotion(), children: [

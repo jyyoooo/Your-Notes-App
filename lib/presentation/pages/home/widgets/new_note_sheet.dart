@@ -24,7 +24,7 @@ addNoteSheet(BuildContext ctx, NotesBloc notesBloc) {
       return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Padding(
-          padding: const EdgeInsets.only(bottom:15.0),
+          padding: const EdgeInsets.only(bottom: 15.0),
           child: FloatingActionButton(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -35,6 +35,10 @@ addNoteSheet(BuildContext ctx, NotesBloc notesBloc) {
               if (titleController.text == '' ||
                   descriptionController.text == '') {
                 showSnackbar('Note is empty', ctx, Colors.red);
+              } else if (descriptionController.text == '') {
+                showSnackbar('Description is empty', ctx, Colors.red);
+              } else if (titleController.text == '') {
+                showSnackbar('Title is empty', ctx, Colors.red);
               } else {
                 notesBloc.add(
                   NotesAddEvent(
