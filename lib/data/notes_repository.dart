@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:bloc_api/core/bloc/api.dart';
 import 'package:bloc_api/core/note_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -7,7 +8,7 @@ import 'package:http/http.dart' as http;
 // '$baseUrl/notes'
 // const String baseUrl = 'https://api.nstack.in/v1/todos';
 
-const String baseUrl = 'http://3.6.151.160:8090';
+
 
 class NotesRepository {
   // Fetch notes from API
