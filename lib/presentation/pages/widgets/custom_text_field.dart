@@ -45,13 +45,14 @@ class CustomTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
           filled: true,
-          fillColor: Colors.grey.withOpacity(.1),
+          fillColor: Colors.white,
           // enabledBorder: InputBorder.none,
           disabledBorder: InputBorder.none,
           contentPadding: const EdgeInsets.all(12),
           labelText: labelText,
+          labelStyle: const TextStyle(color: Colors.grey),
           floatingLabelStyle: const TextStyle(
-              color: Colors.black, fontWeight: FontWeight.w400, fontSize: 18),
+              color: Colors.grey, fontWeight: FontWeight.w400, fontSize: 18),
           hintText: hintText,
           border: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.teal.withOpacity(.2)),

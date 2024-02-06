@@ -1,10 +1,11 @@
 import 'package:bloc_api/presentation/bloc/notes_bloc.dart';
+import 'package:bloc_api/presentation/pages/widgets/show_snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import '../../../../core/note_model.dart';
-import '../../note/view_note.dart';
+import '../../../core/note_model.dart';
+import 'view_note.dart';
 
 class NotesWidget extends StatelessWidget {
   const NotesWidget({
@@ -26,6 +27,7 @@ class NotesWidget extends StatelessWidget {
             onPressed: (context) {
               notesBloc.add(NotesDeleteEvent(id: note.id!));
               context.read<NotesBloc>().add(NotesInitialFetchEvent());
+              showSnackbar('Note deleted', context,Colors.blue);
             },
             icon: CupertinoIcons.delete,
             foregroundColor: Colors.red,

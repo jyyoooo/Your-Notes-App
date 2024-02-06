@@ -1,42 +1,40 @@
 import 'dart:developer';
 import 'package:bloc_api/presentation/bloc/notes_bloc.dart';
-import 'package:bloc_api/presentation/pages/home/widgets/new_note_sheet.dart';
+import 'package:bloc_api/presentation/pages/widgets/new_note_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'widgets/note_card.dart';
-import 'widgets/show_snackbar.dart';
+import '../note/note_card.dart';
+import '../widgets/show_snackbar.dart';
 
-class Home extends StatefulWidget {
+class Home extends StatelessWidget {
   const Home({super.key});
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  // final NotesBloc notesBloc = NotesBloc();
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   notesBloc.add(NotesInitialFetchEvent());
-  // }
 
   @override
   Widget build(BuildContext context) {
     context.read<NotesBloc>().add(NotesInitialFetchEvent());
     final notesBloc = context.read<NotesBloc>();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      context.read<NotesBloc>().add(NotesInitialFetchEvent());
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) async {
+    //   context.read<NotesBloc>().add(NotesInitialFetchEvent());
+    // });
 
     return SafeArea(
-      child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.tealAccent,
-          onPressed: () {
-            addNoteSheet(context, notesBloc);
-          },
-          child: const Icon(CupertinoIcons.add),
+      child: Scaffold(floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom:8.0),
+          child: FloatingActionButton.small(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            tooltip: 'Add new note',
+            backgroundColor: Colors.teal,
+            onPressed: () {
+              addNoteSheet(context, notesBloc);
+            },
+            child: const Icon(
+              CupertinoIcons.add,
+              color: Colors.white,
+            ),
+          ),
         ),
         appBar: AppBar(
           forceMaterialTransparency: true,
@@ -56,7 +54,7 @@ class _HomeState extends State<Home> {
           buildWhen: (previous, current) => current is! NotesActionState,
           listener: (context, state) {
             if (state is NotesAddSuccessState) {
-              showSnackbar('Note added successfully!', context);
+              showSnackbar('New note saved', context);
               notesBloc.add(NotesInitialFetchEvent());
             } else if (state is NotesAddErrorState) {
               showSnackbar('Error updating data', context, Colors.red);
