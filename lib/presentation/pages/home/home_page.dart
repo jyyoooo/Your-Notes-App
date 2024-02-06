@@ -14,13 +14,12 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<NotesBloc>().add(NotesInitialFetchEvent());
     final notesBloc = context.read<NotesBloc>();
- 
 
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 8.0),
-        child: FloatingActionButton.small(
+        padding: const EdgeInsets.only(bottom: 15.0),
+        child: FloatingActionButton(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           tooltip: 'Add new note',

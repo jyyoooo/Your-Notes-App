@@ -18,8 +18,29 @@ class ViewNote extends StatelessWidget {
         TextEditingController(text: note.title);
     TextEditingController updatedDescriptionController =
         TextEditingController(text: note.description);
-    final createdAt = NotesRepository().formatDateTime(note.updatedAt!);
+    final createdAt = NotesRepository().formatDateTime(note.createdAt!);
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        tooltip: 'Update note',
+        backgroundColor: Colors.teal,
+        onPressed: () {
+          notesBloc.add(NotesUpdateEvent(
+              updatedNote: NotesModel(
+                  // isCompleted: true,
+                  id: note.id,
+                  createdAt: note.createdAt,
+                  updatedAt: note.updatedAt,
+                  title: updatedTitleController.text.trim(),
+                  description: updatedDescriptionController.text.trim())));
+          showSnackbar('Note updated', context, Colors.blue);
+          context.read<NotesBloc>().add(NotesInitialFetchEvent());
+        },
+        child: const Icon(
+          CupertinoIcons.cloud_upload,
+          color: Colors.white,
+        ),
+      ),
       backgroundColor: Colors.white,
       appBar: AppBar(
         scrolledUnderElevation: 0,
@@ -50,37 +71,6 @@ class ViewNote extends StatelessWidget {
               border: false,
               maxLines: 23,
             ),
-            Container(
-              alignment: Alignment.center,
-              child: ElevatedButton(
-                onPressed: () {
-                  notesBloc.add(NotesUpdateEvent(
-                      updatedNote: NotesModel(
-                          // isCompleted: true,
-                          id: note.id,
-                          createdAt: note.createdAt,
-                          updatedAt: note.updatedAt,
-                          title: updatedTitleController.text.trim(),
-                          description:
-                              updatedDescriptionController.text.trim())));
-                  showSnackbar('Note updated', context, Colors.blue);
-                  context.read<NotesBloc>().add(NotesInitialFetchEvent());
-                },
-                style: ButtonStyle(
-                    shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14))),
-                    backgroundColor:
-                        const MaterialStatePropertyAll(Colors.teal)),
-                child: const SizedBox.square(
-                  dimension: 20,
-                  child: Icon(
-                    CupertinoIcons.cloud_upload,
-                    size: 23,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            )
           ],
         )),
       ),

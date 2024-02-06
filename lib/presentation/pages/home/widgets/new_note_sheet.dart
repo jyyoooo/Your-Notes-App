@@ -22,10 +22,43 @@ addNoteSheet(BuildContext ctx, NotesBloc notesBloc) {
     context: ctx,
     builder: (ctx) {
       return Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom:15.0),
+          child: FloatingActionButton(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            tooltip: 'Add this note',
+            backgroundColor: Colors.teal,
+            onPressed: () async {
+              // int id = DateTime.now().millisecondsSinceEpoch;
+              if (titleController.text == '' ||
+                  descriptionController.text == '') {
+                showSnackbar('Note is empty', ctx, Colors.red);
+              } else {
+                notesBloc.add(
+                  NotesAddEvent(
+                    note: NotesModel(
+                        // id: id,
+                        title: titleController.text.trim(),
+                        description: descriptionController.text.trim()),
+                  ),
+                );
+                Navigator.pop(ctx);
+                FocusScope.of(ctx).unfocus();
+              }
+            },
+            child: const Icon(
+              CupertinoIcons.check_mark,
+              color: Colors.white,
+            ),
+          ),
+        ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),color: Colors.white),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15), color: Colors.white),
             width: MediaQuery.of(ctx).size.width,
             child: Form(
               key: formKey,
@@ -38,7 +71,6 @@ addNoteSheet(BuildContext ctx, NotesBloc notesBloc) {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                   )),
                   const SizedBox(height: 10),
-      
                   CustomTextField(
                     border: false,
                     labelText: 'Title',
@@ -46,51 +78,12 @@ addNoteSheet(BuildContext ctx, NotesBloc notesBloc) {
                     fw: FontWeight.w500,
                     fs: 18,
                   ),
-      
                   CustomTextField(
-                    border: false,
+                      border: false,
                       maxLines: 20,
                       labelText: 'Desctiption',
                       controller: descriptionController),
-      
                   const SizedBox(height: 20),
-      
-                  // ELEVATED BUTTON
-                  Container(
-                    alignment: Alignment.center,
-                    child: ElevatedButton(
-                      style: const ButtonStyle(fixedSize: MaterialStatePropertyAll(Size.fromWidth(20)),
-                          shape: MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15)))),
-                          foregroundColor:
-                              MaterialStatePropertyAll(Colors.white),
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.teal)),
-                      onPressed: () async {
-                        // int id = DateTime.now().millisecondsSinceEpoch;
-      
-                        if (titleController.text == '' ||
-                            descriptionController.text == '') {
-                          showSnackbar('Note is empty', ctx, Colors.red);
-                        } else {
-                          notesBloc.add(
-                            NotesAddEvent(
-                              note: NotesModel(
-                                  // id: id,
-                                  title: titleController.text.trim(),
-                                  description:
-                                      descriptionController.text.trim()),
-                            ),
-                          );
-                          Navigator.pop(ctx);
-                          FocusScope.of(ctx).unfocus();
-                        }
-                      },
-                      child: const Icon(CupertinoIcons.check_mark,size: 23,),
-                    ),
-                  ),
                 ],
               ),
             ),
