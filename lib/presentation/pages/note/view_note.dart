@@ -2,6 +2,7 @@
 import 'package:bloc_api/presentation/bloc/notes_bloc.dart';
 import 'package:bloc_api/presentation/pages/home/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/note_model.dart';
 
 class ViewNote extends StatelessWidget {
@@ -16,7 +17,7 @@ class ViewNote extends StatelessWidget {
     TextEditingController updatedDescriptionController =
         TextEditingController(text: note.description);
     return Scaffold(
-      appBar: AppBar(
+      appBar:  AppBar(
         title: Text(note.title),
       ),
       body: Center(
@@ -39,13 +40,14 @@ class ViewNote extends StatelessWidget {
                   onPressed: () {
                     notesBloc.add(NotesUpdateEvent(
                         updatedNote: NotesModel(
-                          // isCompleted: true,
+                            // isCompleted: true,
                             id: note.id,
                             createdAt: note.createdAt,
                             updatedAt: note.updatedAt,
                             title: updatedTitleController.text.trim(),
                             description:
                                 updatedDescriptionController.text.trim())));
+                                context.read<NotesBloc>().add(NotesInitialFetchEvent());
                   },
                   style: const ButtonStyle(
                       backgroundColor:

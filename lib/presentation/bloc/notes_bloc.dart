@@ -4,23 +4,24 @@ import 'package:bloc/bloc.dart';
 import 'package:bloc_api/core/note_model.dart';
 import 'package:bloc_api/data/notes_repository.dart';
 import 'package:flutter/foundation.dart';
+
 part 'notes_event.dart';
 part 'notes_state.dart';
 
 class NotesBloc extends Bloc<NotesEvent, NotesState> {
   NotesBloc() : super(NotesInitialState()) {
-    on<NotesInitialFetchEvent>(notesInitialFetchEvent);
+    on<NotesInitialFetchEvent>(notesFetchEvent);
     on<NotesAddEvent>(notesAddEvent);
     on<NotesUpdateEvent>(notesUpdateEvent);
     on<NotesDeleteEvent>(noteDeleteEvent);
   }
 
-  FutureOr<void> notesInitialFetchEvent(
+  FutureOr<void> notesFetchEvent(
       NotesInitialFetchEvent event, Emitter<NotesState> emit) async {
     log('in on Notesinit fn');
     emit(NotesFetchLoadingState());
     final notes = await NotesRepository.fetchNotes();
-    log('notes from fetch in notesInitialFetchEvent :$notes');
+    log('notes from fetch in notesFetchEvent :$notes');
     emit(NotesSuccessfulFetchState(notes: notes));
   }
 

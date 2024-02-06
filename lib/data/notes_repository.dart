@@ -3,11 +3,11 @@ import 'dart:developer';
 import 'package:bloc_api/core/note_model.dart';
 import 'package:http/http.dart' as http;
 
+// 'data' 'items'
+// '$baseUrl/notes'
 // const String baseUrl = 'https://api.nstack.in/v1/todos';
 
 const String baseUrl = 'http://3.6.151.160:8090';
-// 'data'
-// '$baseUrl/notes'
 
 class NotesRepository {
   // Fetch notes from API
@@ -45,7 +45,7 @@ class NotesRepository {
       var response = await client.post(Uri.parse('$baseUrl/note'),
           body: jsonEncode(note.toMap()),
           headers: {'Content-Type': 'application/json'});
-      log('add response: ${response.statusCode}');
+      log('add response status: ${response.statusCode}');
       log(response.body);
 
       if (response.statusCode == 201 || response.statusCode == 200) {
@@ -69,8 +69,8 @@ class NotesRepository {
         body: jsonEncode(updatedNote.toMap()),
         headers: {'Content-Type': 'application/json'},
       );
-      log('status code: ${response.statusCode}');
-      log(response.body);
+      log('updation status code: ${response.statusCode}');
+      // log(response.body);
 
       if (response.statusCode == 200) {
         return true;
@@ -86,10 +86,10 @@ class NotesRepository {
     var client = http.Client();
     try {
       String url = "$baseUrl/note/$deleteNoteID";
-      log(url);
+      // log(url);
       var response = await client.delete(Uri.parse(url));
-      log('status code: ${response.statusCode}');
-      log(response.body);
+      log('deletion status code: ${response.statusCode}');
+      // log(response.body);
 
       if (response.statusCode == 200) {
         return true;

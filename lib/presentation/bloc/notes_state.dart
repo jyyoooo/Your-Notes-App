@@ -12,18 +12,14 @@ class NotesSuccessfulFetchState extends NotesState {
   NotesSuccessfulFetchState({required this.notes});
 }
 
+class NotesFetchLoadingState extends NotesState {}
 class NotesFetchErrorState extends NotesState {}
 
-class NotesFetchLoadingState extends NotesState {}
-
 class NotesAddSuccessState extends NotesActionState {}
-
 class NotesAddErrorState extends NotesActionState {}
 
 class NotesUpdateSuccessState extends NotesActionState {}
-
 class NotesUpdateErrorState extends NotesActionState {}
 
 class NotesDeleteSuccessState extends NotesActionState {}
-
 class NotesDeleteErrorState extends NotesActionState {}

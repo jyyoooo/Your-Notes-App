@@ -4,7 +4,6 @@ import 'package:bloc_api/presentation/pages/home/widgets/new_note_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'widgets/note_card.dart';
 import 'widgets/show_snackbar.dart';
 
@@ -15,16 +14,17 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final NotesBloc notesBloc = NotesBloc();
-  @override
-  void initState() {
-    super.initState();
-    notesBloc.add(NotesInitialFetchEvent());
-  }
+  // final NotesBloc notesBloc = NotesBloc();
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   notesBloc.add(NotesInitialFetchEvent());
+  // }
 
   @override
   Widget build(BuildContext context) {
-    context.read<NotesBloc>();
+    context.read<NotesBloc>().add(NotesInitialFetchEvent());
+    final notesBloc = context.read<NotesBloc>();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       context.read<NotesBloc>().add(NotesInitialFetchEvent());
     });
@@ -71,7 +71,7 @@ class _HomeState extends State<Home> {
                 ));
               case NotesSuccessfulFetchState:
                 final successState = state as NotesSuccessfulFetchState;
-                log('suxs state');
+                log('suxsful fetch state');
                 // log('suxs  ${successState.notes}');
                 return successState.notes.isNotEmpty
                     ? ListView.builder(
@@ -88,12 +88,11 @@ class _HomeState extends State<Home> {
                           style: TextStyle(color: Colors.grey),
                         )),
                       );
-
               default:
                 return const SizedBox(
                   child: Center(
                       child: Text(
-                    'Could\'nt load Notes\nTry again',
+                    'Couldn\'t load Notes\nTry again',
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.grey),
                   )),
