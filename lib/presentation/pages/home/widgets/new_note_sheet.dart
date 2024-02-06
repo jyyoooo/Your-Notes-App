@@ -1,9 +1,9 @@
-import 'package:bloc_api/presentation/pages/widgets/show_snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../core/note_model.dart';
-import '../../bloc/notes_bloc.dart';
+import '../../../../core/bloc/notes_bloc.dart';
+import '../../../../core/note_model.dart';
 import 'custom_text_field.dart';
+import 'show_snackbar.dart';
 
 addNoteSheet(BuildContext ctx, NotesBloc notesBloc) {
   final formKey = GlobalKey<FormState>();

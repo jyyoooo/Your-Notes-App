@@ -1,11 +1,11 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:bloc_api/presentation/bloc/notes_bloc.dart';
-import 'package:bloc_api/presentation/pages/widgets/custom_text_field.dart';
-import 'package:bloc_api/presentation/pages/widgets/show_snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/bloc/notes_bloc.dart';
 import '../../../core/note_model.dart';
+import '../../../data/notes_repository.dart';
+import '../home/widgets/custom_text_field.dart';
+import '../home/widgets/show_snackbar.dart';
 
 class ViewNote extends StatelessWidget {
   const ViewNote({Key? key, required this.note}) : super(key: key);
@@ -18,16 +18,27 @@ class ViewNote extends StatelessWidget {
         TextEditingController(text: note.title);
     TextEditingController updatedDescriptionController =
         TextEditingController(text: note.description);
+    final createdAt = NotesRepository().formatDateTime(note.updatedAt!);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         title: Text(note.title),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(
-            child: ListView(physics: const BouncingScrollPhysics(),
+            child: ListView(
+          physics: const BouncingScrollPhysics(),
           children: [
+            Text(
+              createdAt,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 13,
+                  color: Colors.grey),
+            ),
             CustomTextField(
               controller: updatedTitleController,
               border: false,

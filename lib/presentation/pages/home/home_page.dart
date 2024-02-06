@@ -1,11 +1,11 @@
 import 'dart:developer';
-import 'package:bloc_api/presentation/bloc/notes_bloc.dart';
-import 'package:bloc_api/presentation/pages/widgets/new_note_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/bloc/notes_bloc.dart';
 import '../note/note_card.dart';
-import '../widgets/show_snackbar.dart';
+import 'widgets/new_note_sheet.dart';
+import 'widgets/show_snackbar.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});

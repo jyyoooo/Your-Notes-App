@@ -1,6 +1,6 @@
-import 'package:bloc_api/presentation/bloc/notes_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'core/bloc/notes_bloc.dart';
 import 'presentation/pages/home/home_page.dart';
 
 void main() {

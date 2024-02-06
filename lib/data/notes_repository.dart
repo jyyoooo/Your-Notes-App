@@ -100,4 +100,28 @@ class NotesRepository {
       return false;
     }
   }
+
+  String formatDateTime(int timestamp) {
+    final DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    final months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ];
+
+    final day = dateTime.day.toString();
+    final month = months[dateTime.month - 1]; // Month index starts from 0
+    final year = dateTime.year.toString();
+
+    return '$day $month $year';
+  }
 }
