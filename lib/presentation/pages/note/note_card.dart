@@ -66,13 +66,15 @@ class NotesWidget extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const Spacer(),
-                    Text(
-                      note.description,
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          color: Colors.grey[700],
-                          overflow: TextOverflow.ellipsis),
+                    const SizedBox(height: 5),
+                    Expanded(
+                      child: Text(
+                        note.description,
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            color: Colors.grey[700],
+                            overflow: TextOverflow.ellipsis),
+                      ),
                     )
                   ],
                 ),

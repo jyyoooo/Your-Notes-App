@@ -37,7 +37,7 @@ class ViewNote extends StatelessWidget {
             CustomTextField(
               controller: updatedDescriptionController,
               border: false,
-              maxLines: 20,
+              maxLines: 23,
             ),
             Container(
               alignment: Alignment.center,
