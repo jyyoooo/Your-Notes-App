@@ -1,3 +1,4 @@
+import 'package:bloc_api/presentation/pages/home/widgets/show_snackbar.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/note_model.dart';
 import '../../../bloc/notes_bloc.dart';
@@ -18,7 +19,8 @@ addNoteSheet(BuildContext ctx, NotesBloc notesBloc) {
     ),
     context: ctx,
     builder: (ctx) {
-      return Theme(data: ThemeData(primaryColor: Colors.white),
+      return Theme(
+        data: ThemeData(primaryColor: Colors.white),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Scaffold(
@@ -26,24 +28,29 @@ addNoteSheet(BuildContext ctx, NotesBloc notesBloc) {
               width: MediaQuery.of(ctx).size.width,
               child: Form(
                 key: formKey,
-                child: ListView(physics: const BouncingScrollPhysics(),
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
                   children: [
                     const SizedBox(height: 10),
                     // TITLE
-        
+
                     const SizedBox(height: 10),
-        
+
                     // TEXT INPUT
                     CustomTextField(
-                        labelText: 'Title', controller: titleController,fw: FontWeight.w500,fs: 18,),
-                        
+                      labelText: 'Title',
+                      controller: titleController,
+                      fw: FontWeight.w500,
+                      fs: 18,
+                    ),
+
                     CustomTextField(
                         maxLines: 20,
                         labelText: 'Desctiption',
                         controller: descriptionController),
-        
+
                     const SizedBox(height: 20),
-        
+
                     // ELEVATED BUTTON
                     Container(
                       alignment: Alignment.center,
@@ -58,40 +65,26 @@ addNoteSheet(BuildContext ctx, NotesBloc notesBloc) {
                             backgroundColor:
                                 MaterialStatePropertyAll(Colors.tealAccent)),
                         onPressed: () async {
-                          int id = DateTime.now().millisecondsSinceEpoch;
-        
+                          // int id = DateTime.now().millisecondsSinceEpoch;
+
                           if (titleController.text == '' ||
                               descriptionController.text == '') {
-                            ScaffoldMessenger.of(ctx).showSnackBar(
-                              const SnackBar(
-                                showCloseIcon: true,
-                                content: Text('Fill all fields!'),
-                                backgroundColor: Colors.red,
-                                margin: EdgeInsets.all(15),
-                                behavior: SnackBarBehavior.floating,
-                              ),
+                            showSnackbar(
+                              'Fill all fields!',
+                              ctx,Colors.red
                             );
                           } else {
                             notesBloc.add(
                               NotesAddEvent(
-                                note: NotesModel(id: id.toString(),
+                                note: NotesModel(
+                                    // id: id,
                                     title: titleController.text.trim(),
-                                    description: descriptionController.text.trim()),
+                                    description:
+                                        descriptionController.text.trim()),
                               ),
                             );
                             Navigator.pop(ctx);
                             FocusScope.of(ctx).unfocus();
-                            ScaffoldMessenger.of(ctx).showSnackBar(
-                              SnackBar(
-                                duration: const Duration(milliseconds: 980),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                content: const Text('New note added'),
-                                backgroundColor: Colors.teal,
-                                margin: const EdgeInsets.all(15),
-                                behavior: SnackBarBehavior.floating,
-                              ),
-                            );
                           }
                         },
                         child: const Text('Save'),

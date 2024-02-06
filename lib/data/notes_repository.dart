@@ -3,9 +3,11 @@ import 'dart:developer';
 import 'package:bloc_api/core/note_model.dart';
 import 'package:http/http.dart' as http;
 
-const String baseUrl = 'https://api.nstack.in/v1/todos';
+// const String baseUrl = 'https://api.nstack.in/v1/todos';
 
-// const String baseUrl = 'http://35.154.103.21:8090';
+const String baseUrl = 'http://3.6.151.160:8090';
+// 'data'
+// '$baseUrl/notes'
 
 class NotesRepository {
   // Fetch notes from API
@@ -14,19 +16,21 @@ class NotesRepository {
     List<NotesModel> notes = [];
 
     try {
-      var response = await client.get(Uri.parse(baseUrl));
-      log(response.statusCode.toString());
+      var response = await client.get(Uri.parse('$baseUrl/notes'));
+      // log(' status: ${response.body}');
+      // log('note repo fetch status: ${response.statusCode.toString()}');
 
       if (response.statusCode == 200) {
-        final responseData = jsonDecode(response.body);
-        log(responseData.toString());
-        final notesFromJson = responseData['items'];
-        log('items in notes are ${responseData['items']}');
+        final responseData = await jsonDecode(response.body);
+        // log('reponsedata ${responseData.toString()}');
+        final notesFromJson = responseData['data'];
+        // log(' notes from AAAAAAAAAA $notesFromJson');
+        // log('items in notes are ${responseData['data']}');
         for (Map<String, dynamic> note in notesFromJson) {
           notes.add(NotesModel.fromMap(note));
         }
       }
-      // log('response body ${response.body}');
+      // log('XXXXXXXXXXnotes $notes');
       return notes;
     } catch (exception) {
       log(exception.toString());
@@ -38,13 +42,56 @@ class NotesRepository {
   static Future<bool> addNote({required NotesModel note}) async {
     var client = http.Client();
     try {
-      var response = await client.post(Uri.parse(baseUrl),
+      var response = await client.post(Uri.parse('$baseUrl/note'),
           body: jsonEncode(note.toMap()),
           headers: {'Content-Type': 'application/json'});
-      log(response.statusCode.toString());
+      log('add response: ${response.statusCode}');
       log(response.body);
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
+
+  static Future<bool> updateNote({required NotesModel updatedNote}) async {
+    var client = http.Client();
+    try {
+      String url = "$baseUrl/note/${updatedNote.id}";
+      log(url);
+
+      var response = await client.put(
+        Uri.parse(url),
+        body: jsonEncode(updatedNote.toMap()),
+        headers: {'Content-Type': 'application/json'},
+      );
+      log('status code: ${response.statusCode}');
+      log(response.body);
+
+      if (response.statusCode == 200) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
+
+  static Future<bool> deleteNote({required String deleteNoteID}) async {
+    var client = http.Client();
+    try {
+      String url = "$baseUrl/note/$deleteNoteID";
+      log(url);
+      var response = await client.delete(Uri.parse(url));
+      log('status code: ${response.statusCode}');
+      log(response.body);
+
+      if (response.statusCode == 200) {
         return true;
       }
       return false;

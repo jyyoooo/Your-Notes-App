@@ -1,8 +1,8 @@
 
 class NotesModel {
-  final String? id;
-  final String? createdAt;
-  final String? updatedAt;
+  late String? id;
+  final int? createdAt;
+  final int? updatedAt;
   final String title;
   final String description;
   final bool? isCompleted;
@@ -18,9 +18,7 @@ class NotesModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      '_id': id,
-      'createdAt': createdAt,
-      'updated_at': updatedAt,
+      // '_id': id,
       'title': title,
       'description': description,
       'isCompleted': isCompleted,
@@ -30,8 +28,8 @@ class NotesModel {
   factory NotesModel.fromMap(Map<String, dynamic> json) {
     return NotesModel(
       id: json['_id'] as String,
-      createdAt: json['createdAt'] != null ? json['createdAt'] as String : null,
-      updatedAt: json['updated_at'] != null ? json['updated_at'] as String : null,
+      createdAt: json['createdAt'] != null ? json['createdAt'] as int : null,
+      updatedAt: json['updated_at'] != null ? json['updated_at'] as int : null,
       title: json['title'] as String,
       description: json['description'] as String,
       isCompleted: json['isCompleted'] != null ? json['isCompleted'] as bool : null,

@@ -9,6 +9,7 @@ class CustomTextField extends StatelessWidget {
   final int? maxLines;
   final double? fs;
   final FontWeight? fw;
+  final bool border;
 
   const CustomTextField({
     Key? key,
@@ -19,6 +20,7 @@ class CustomTextField extends StatelessWidget {
     this.maxLines,
     this.fs,
     this.fw,
+    this.border = true,
   }) : super(key: key);
 
   @override
@@ -33,7 +35,9 @@ class CustomTextField extends StatelessWidget {
         decoration: InputDecoration(
           alignLabelWithHint: true,
           focusedBorder: OutlineInputBorder(
-            borderSide:  BorderSide(color: Colors.teal.withOpacity(.3)),
+            borderSide: border
+                ? BorderSide(color: Colors.teal.withOpacity(.3))
+                : BorderSide.none,
             borderRadius: BorderRadius.circular(12),
           ),
           enabledBorder: OutlineInputBorder(
